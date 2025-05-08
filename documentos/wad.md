@@ -206,7 +206,7 @@ Essa tela atende diretamente os requisitos da US01, mostrando para o piloto os s
 Essa tela atende diretamente ao segundo critério de aceite da US02, em que o piloto pode clicar no dia da semana em que ele está (hoje) e visualizar suas tarefas, que serão marcadas por ele como "pendentes" ou "feitas" e por ordem de prioridade.
 <div align="center">
   <sub>Tela dos dias da semana:</sub><br>
-  <img src="../assets/diadasemana.png" width="100%" alt="Tela dos dias da semana"><br>
+  <img src="../assets/semana.png" width="100%" alt="Tela dos dias da semana"><br>
   <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
 </div>
 
@@ -223,7 +223,7 @@ Essa tela atende às questões que o piloto trás sobre sua organização pessoa
 Esta tela atende diretamente às necessidades operacionais do piloto, organizando as tarefas específicas de voo (US01) e servindo como base para os lembretes automáticos (US03) antes dos compromissos importantes.
 <div align="center">
   <sub>Tela do Checklist pré voo:</sub><br>
-  <img src="../assets/diadasemana.png" width="100%" alt="Tela do Checklist pré voo:"><br>
+  <img src="../assets/voos.png" width="100%" alt="Tela do Checklist pré voo:"><br>
   <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
 </div>
 
