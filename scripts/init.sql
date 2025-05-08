@@ -1,35 +1,60 @@
--- init.sql
-
--- Criar extensão para suportar UUIDs, se ainda não estiver ativada
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
--- Criar tabela de usuários com UUID como chave primária
-CREATE TABLE IF NOT EXISTS users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR(100) NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL
+-- Tabela de usuários (pilotos)
+CREATE TABLE usuarios (
+    id BIGSERIAL PRIMARY KEY,
+    nome TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    tipo_licenca TEXT,
+    horas_voo_totais INT DEFAULT 0,
+    aeroporto_base TEXT
 );
 
--- Inserir 20 usuários com nomes e emails aleatórios
-INSERT INTO users (name, email)
-VALUES 
-  ('Alice Smith', 'alice.smith@example.com'),
-  ('Bob Johnson', 'bob.johnson@example.com'),
-  ('Carol Williams', 'carol.williams@example.com'),
-  ('David Jones', 'david.jones@example.com'),
-  ('Emma Brown', 'emma.brown@example.com'),
-  ('Frank Davis', 'frank.davis@example.com'),
-  ('Grace Wilson', 'grace.wilson@example.com'),
-  ('Henry Moore', 'henry.moore@example.com'),
-  ('Isabella Taylor', 'isabella.taylor@example.com'),
-  ('Jack Lee', 'jack.lee@example.com'),
-  ('Kate Clark', 'kate.clark@example.com'),
-  ('Liam Martinez', 'liam.martinez@example.com'),
-  ('Mia Rodriguez', 'mia.rodriguez@example.com'),
-  ('Noah Garcia', 'noah.garcia@example.com'),
-  ('Olivia Hernandez', 'olivia.hernandez@example.com'),
-  ('Patrick Martinez', 'patrick.martinez@example.com'),
-  ('Quinn Lopez', 'quinn.lopez@example.com'),
-  ('Rose Thompson', 'rose.thompson@example.com'),
-  ('Samuel Perez', 'samuel.perez@example.com'),
-  ('Tara Scott', 'tara.scott@example.com');
+-- Tabela de tarefas
+CREATE TABLE tarefas (
+    id BIGSERIAL PRIMARY KEY,
+    titulo TEXT NOT NULL,
+    descricao TEXT,
+    data DATE NOT NULL,
+    hora_inicio TIME,
+    hora_fim TIME,
+    categoria TEXT, -- voo, descanso, pessoal, etc.
+    prioridade TEXT,
+    status TEXT DEFAULT 'pendente',
+    usuario_id BIGINT REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+-- Tabela de voos
+CREATE TABLE voos (
+    id BIGSERIAL PRIMARY KEY,
+    origem TEXT NOT NULL,
+    destino TEXT NOT NULL,
+    partida TIMESTAMP NOT NULL,
+    chegada TIMESTAMP NOT NULL,
+    tempo_voo INT, -- minutos
+    usuario_id BIGINT REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+-- Tabela de pernoites
+CREATE TABLE pernoites (
+    id BIGSERIAL PRIMARY KEY,
+    local TEXT NOT NULL,
+    data DATE NOT NULL,
+    duracao_noites INT DEFAULT 1,
+    voo_id BIGINT REFERENCES voos(id) ON DELETE SET NULL,
+    usuario_id BIGINT REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+-- Tabela de dias de folga
+CREATE TABLE dias_folga (
+    id BIGSERIAL PRIMARY KEY,
+    data DATE NOT NULL,
+    motivo TEXT,
+    usuario_id BIGINT REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+-- Tabela de conexões entre voos
+CREATE TABLE conexoes (
+    id BIGSERIAL PRIMARY KEY,
+    voo_id BIGINT REFERENCES voos(id) ON DELETE CASCADE,
+    conectado_a BIGINT REFERENCES voos(id) ON DELETE CASCADE,
+    tempo_conexao INT -- minutos
+);

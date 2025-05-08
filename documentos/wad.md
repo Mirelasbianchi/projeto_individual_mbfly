@@ -160,7 +160,7 @@ Conectam dois voos consecutivos:
 </div>
 
 #### Modelo físico com o Schema do BD
-📥 [Schema SQL completo](../database/schema.sql)
+📥 [Schema SQL completo](../scripts/init.sql)
 
 ### 3.1.1 BD e Models (Semana 5)
 *Descreva aqui os Models implementados no sistema web*
@@ -176,7 +176,7 @@ Conectam dois voos consecutivos:
   
 *Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
 
-### 3.3. Wireframes (Semana 03)
+### 3.3. Wireframes 
 
 ####  Tela de início
 Essa tela atende os requisitos da US04, utilizando de um design bem estruturado e intuitivo para mostrar as funcionalidades do site para que assim que os pilotos acessarem, eles já saibam quais ferramentas terão ao seu dispor.
