@@ -81,7 +81,6 @@ erDiagram
     voos ||--o{ pernoites : "0..1:1"
 ```
 
-
 ##### Entidades e Relacionamentos:
 
 ##### Usuários (`usuarios`)
@@ -156,7 +155,7 @@ Conectam dois voos consecutivos:
 
 <div align="center">
   <sub>Diagrama do banco de dados completo:</sub><br>
-  <img src="../assets/modelo-banco.png" width="100%" alt="Persona 1"><br>
+  <img src="../assets/modelo-banco.png" width="100%" alt="modelo"><br>
   <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
 </div>
 
