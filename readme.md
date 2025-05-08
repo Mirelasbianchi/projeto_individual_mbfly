@@ -1,8 +1,10 @@
 # ✈️ Projeto Individual - MBFly
 
-<p align="center">
-<a href= "https://www.inteli.edu.br/"><img src="assets/readme_images/inteli.png" alt="Inteli - Instituto de Tecnologia e Liderança" border="0" width=40% height=40%></a>
-</p>
+<div align="center">
+  <sub>Logo Mbfly</sub><br>
+  <img src="./assets/logo.png" width="100%" alt="Logo"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
 
 <br>
 
