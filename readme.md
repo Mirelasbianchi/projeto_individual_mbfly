@@ -1,83 +1,87 @@
-# Boilerplate MVC em Node.js com PostgreSQL
+# ✈️ Projeto Individual - MBFly
 
-Este projeto é um boilerplate básico para uma aplicação Node.js seguindo o padrão MVC (Model-View-Controller), utilizando PostgreSQL como banco de dados.
+<p align="center">
+<a href= "https://www.inteli.edu.br/"><img src="assets/readme_images/inteli.png" alt="Inteli - Instituto de Tecnologia e Liderança" border="0" width=40% height=40%></a>
+</p>
 
-## Requisitos
+<br>
 
-- Node.js (versão X.X.X)
-- PostgreSQL (versão X.X.X)
+## 👩‍🎓 Autora:
+- <a href="https://www.linkedin.com/in/mirela-bianchi-608601254/">Mirela Bianchi</a>
 
-## Instalação
+---
 
-1. **Clonar o repositório:**
+## 📜 Descrição do Sistema
 
-```bash
-   git clone https://github.com/seu-usuario/seu-projeto.git
-   cd seu-projeto
+O sistema MBFly é uma aplicação desenvolvida com arquitetura MVC que tem como objetivo gerenciar usuários e suas informações em uma interface simples e funcional. Ele será um gerenciador de tarefas online voltado à organização pessoal e aumento da produtividade de pilotos de avião. De forma simples e intuitiva, permitirá ao usuário criar tarefas, definir prazos, organizá-las por categorias como voos, estudos, checagens e escalas, além de acompanhar seu progresso.
+
+---
+
+## 📁 Estrutura de Pastas e Arquivos
+
+A estrutura do projeto está organizada da seguinte forma:
+```
+projeto_individual_mbfly/
+│
+├── assets/              # Imagens e recursos não estruturados
+├── controllers/         # Lógica das rotas e manipulação de requisições
+├── documentos/          # Documentação do projeto
+├── views/               # Camada de visualização do projeto 
+├── scripts/             # Camada de scripts do projeto
+├── models/              # Modelos de dados utilizados pelo sistema
+├── routes/              # Definição das rotas da aplicação
+├── services/            # Camada de regras de negócio
+├── tests/               # Camada de testes do projeto
+├── config/              # Configurações do projeto
+├── .gitignore           # Arquivos ignorados pelo Git
+├── package.json         # Dependências e scripts do projeto
+├── README.md            # Documentação do projeto (este arquivo)
+└── server.js            # Ponto de entrada da aplicação
 ```
 
-2. **Instalar as dependências:**
-    
+
+## 🔧 Como Executar o Projeto Localmente
+
+Antes de iniciar, certifique-se de ter instalado:
+
+- [Node.js (versão mais recente)](https://nodejs.org/)
+- [Git](https://git-scm.com/)
+- Um editor de código como [Visual Studio Code](https://code.visualstudio.com/)
+
+### 🚀 Passo a passo:
+
+1. **Clone o repositório:**
+
+```bash
+git clone https://github.com/Mirelasbianchi/projeto_individual_mbfly.git
+```
+
+2. **Entre na pasta do projeto:**
+
+```bash
+cd projeto_individual_mbfly
+```
+
+3. **Instale as dependências:**
+
 ```bash
 npm install
 ```
-    
-3. **Configurar o arquivo `.env`:**
-    
-Renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente necessárias, como as configurações do banco de dados PostgreSQL.
-    
 
-Configuração do Banco de Dados
-------------------------------
+4. **Execute o projeto:**
 
-1. **Criar banco de dados:**
-    
-    Crie um banco de dados PostgreSQL com o nome especificado no seu arquivo `.env`.
-    
-2. **Executar o script SQL de inicialização:**
-    
 ```bash
-npm run init-db
+npm start
 ```
-    
-Isso criará a tabela `users` no seu banco de dados PostgreSQL com UUID como chave primária e inserirá alguns registros de exemplo.
-    
 
-Funcionalidades
----------------
+5. **Acesse a aplicação no navegador:**
 
-* **Padrão MVC:** Estrutura organizada em Model, View e Controller.
-* **PostgreSQL:** Banco de dados relacional utilizado para persistência dos dados.
-* **UUID:** Utilização de UUID como chave primária na tabela `users`.
-* **Scripts com `nodemon`:** Utilização do `nodemon` para reiniciar automaticamente o servidor após alterações no código.
-* **Testes:** Inclui estrutura básica para testes automatizados.
+```
+http://localhost:3000
+```
 
-Scripts Disponíveis
--------------------
+---
 
-* `npm start`: Inicia o servidor Node.js.
-* `npm run dev`: Inicia o servidor com `nodemon`, reiniciando automaticamente após alterações no código.
-* `npm run test`: Executa os testes automatizados.
-* `npm run test:coverage`: Executa os testes e gera um relatório de cobertura de código.
+## 📋 Licença
 
-Estrutura de Diretórios
------------------------
-
-* **`config/`**: Configurações do banco de dados e outras configurações do projeto.
-* **`controllers/`**: Controladores da aplicação (lógica de negócio).
-* **`models/`**: Modelos da aplicação (definições de dados e interações com o banco de dados).
-* **`routes/`**: Rotas da aplicação.
-* **`tests/`**: Testes automatizados.
-* **`views/`**: Views da aplicação (se aplicável).
-
-Contribuição
-------------
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir um issue ou enviar um pull request.
-
-Licença
--------
-
-Este projeto está licenciado sob a Licença MIT.
-
-Este README.md fornece uma visão geral clara do boilerplate, incluindo instruções de instalação, configuração do banco de dados, funcionalidades principais, scripts disponíveis, estrutura de diretórios, como contribuir e informações de licença. Certifique-se de personalizar as seções com detalhes específicos do seu projeto conforme necessário.
+Este projeto está licenciado sob a licença [MIT](https://opensource.org/licenses/MIT).
