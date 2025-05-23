@@ -227,14 +227,101 @@ Esta tela atende diretamente às necessidades operacionais do piloto, organizand
   <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
 </div>
 
-### 3.4. Guia de estilos (Semana 05)
+### 3.4. Guia de estilos 
 
-*Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.*
+Um guia de estilos é um documento que define padrões visuais e comportamentais para a interface de um sistema. Ele reúne elementos como paleta de cores, tipografia, espaçamento, ícones, botões e demais componentes gráficos, garantindo que o design mantenha coerência e identidade visual em todas as telas. Serve como uma referência para desenvolvedores e designers, promovendo consistência e facilitando futuras manutenções e expansões do projeto.
 
+<div align="center">
+  <sub>Guia de estilos:</sub><br>
+  <img src="../assets/guia.png" width="100%" alt="Layout:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
 
-### 3.5. Protótipo de alta fidelidade (Semana 05)
+#### Explicação:
+Este é o guia de estilos desenvolvido especialmente para a tela principal do projeto MBFly, a tela de início, que apresenta as funcionalidades centrais do sistema. O objetivo foi criar uma identidade visual clara, moderna e funcional para facilitar a navegação dos usuários. As cores foram escolhidas para equilibrar contraste e acessibilidade: tons claros (como o branco #FFFFFF) são usados para destacar elementos importantes como títulos e ícones. Já o azul-claro #00CCEB foi reservado exclusivamente para botões, criando um ponto de destaque que facilita a identificação de ações interativas na tela.
 
-*Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
+Os retângulos coloridos representam a paleta de cores utilizada em todo o projeto, cada um com função específica: alguns para textos, outros para o fundo (demonstrando a identidade visual do sistema, em que suas cores principais de forma hierarquica são o roxo e o azul céu). A tipografia segue dois tamanhos distintos – 96 para títulos e 48 para informações – refletindo a hierarquia visual da tela de início, onde o título tem destaque e os textos informativos complementam a navegação. A diferença de cor entre as fontes também reforça essa hierarquia e melhora a leitura.
+
+Quanto aos ícones, eles foram escolhidos no estilo outline (contorno), por serem visuais, leves e modernos, alinhados ao tema da aviação digital, e eles todos são ícones de referência, que usam analogias para representar conceitos abstratos.
+
+<div align="center">
+  <sub>Layout e grides:</sub><br>
+  <img src="../assets/layout.png" width="100%" alt="Layout:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+#### Explicação:
+
+Este layout representa a tela inicial do MBFly, estruturada com base em um grid de colunas e linhas, que garante alinhamento, organização e equilíbrio visual entre os elementos. O uso de grades visuais (grids) facilita o posicionamento dos componentes na interface, criando uma hierarquia clara e consistente entre título, botão e funcionalidades. O título ocupa 4 linhas, dando destaque e prioridade à mensagem principal. A separação entre o título, botão e as funcionalidades é feita por espaços estratégicos de 1 linha, o que melhora a leitura e evita a poluição visual.
+
+A parte inferior, com fundo azul, destaca as principais funcionalidades do sistema, organizadas em três blocos simétricos, cada um com seu respectivo ícone e legenda, todos posicionados com base no mesmo grid. O botão “Comece aqui” está centralizado e destacado com uma cor exclusiva, seguindo o guia de estilos. Esse uso intencional de espaçamento e alinhamento é essencial para a usabilidade e acessibilidade, pois guia o olhar do usuário de forma fluida e intuitiva, além de reforçar a identidade visual e profissionalismo do projeto.
+
+Sendo assim, no contexto do MBFly, o guia de estilos é essencial para assegurar que a experiência do usuário seja fluida, clara e alinhada às necessidades dos pilotos. Através dele, é possível manter uma identidade visual coesa, reforçar a usabilidade e agilizar o desenvolvimento das interfaces, pois cada componente visual segue uma lógica previamente definida.
+
+### 3.5. Protótipo de alta fidelidade 
+
+Um protótipo de alta fidelidade é uma representação visual detalhada do sistema final, com aparência, interações e funcionalidades próximas da versão real. Diferente dos esboços iniciais, ele inclui elementos gráficos precisos, navegação realista e simula com fidelidade como o usuário final vai interagir com o sistema. 
+
+<div align="center">
+  <sub>Tela de início (principal):</sub><br>
+  <img src="../assets/inicio1.png" width="100%" alt="Tela de início:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+A tela de início foi projetada para ser clara, objetiva e intuitiva, cumprindo a US04, que pede um site funcional e compreensível desde o primeiro acesso. O layout apresenta blocos com ícones e cores suaves, permitindo ao piloto entender rapidamente as funcionalidades principais, como calendário, tarefas e voos. A escolha por um fundo branco com elementos em tons de azul e cinza traz seriedade e remete ao ambiente aeronáutico, ao mesmo tempo que favorece a leitura em diferentes dispositivos.
+
+<div align="center">
+  <sub>Tela de login:</sub><br>
+  <img src="../assets/login1.png" width="100%" alt="Tela de checklist:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+Relacionada diretamente à US04, esta tela garante que cada piloto possa acessar apenas seus próprios dados, através de um login seguro por e-mail e senha. O layout segue a mesma linha visual das outras telas, com cores neutras e tipografia clara, reforçando a identidade visual e promovendo uma navegação sem distrações.
+
+<div align="center">
+  <sub>Tela de cadastro:</sub><br>
+  <img src="../assets/cadastro1.png" width="100%" alt="Tela do cadastro:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+Essa tela complementa a tela de login, facilitando o primeiro acesso do piloto ao sistema. O uso de campos bem espaçados e botões em azul escuro, contrastando com o fundo claro, garante boa usabilidade e acessibilidade. O design minimalista reflete a proposta de foco e organização do MBFly, reforçando os princípios da US04, que trata da segurança e privacidade das informações do usuário.
+
+<div align="center">
+  <sub>Tela de Calendario:</sub><br>
+  <img src="../assets/calendario1.png" width="100%" alt="Tela do Calendario:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+A tela de calendário responde aos critérios da US02, permitindo que o piloto visualize todas as suas tarefas organizadas por dia, mês e prioridade. O design em formato de grade, com cores suaves para os dias e marcadores coloridos para indicar o dia vigente, facilita o planejamento visual. O toque moderno e organizado da interface ajuda a manter o foco, mesmo em rotinas exigentes.
+
+<div align="center">
+  <sub>Tela de informações pessoais:</sub><br>
+  <img src="../assets/relatorios1.png" width="100%" alt="Tela da persona:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+Essa tela representa um painel de controle do piloto, centralizando dados como horas de voo, destinos visitados e licenças. Atende às funcionalidades previstas na US01, pois oferece uma visão organizada das tarefas e registros pessoais. A interface foi pensada para ser objetiva, com ícones temáticos e gráficos simples, promovendo clareza e acompanhamento de metas de forma visualmente agradável.
+
+<div align="center">
+  <sub>Tela de compromissos:</sub><br>
+  <img src="../assets/semana1.png" width="100%" alt="Tela de metas:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+Aqui o piloto pode visualizar suas tarefas detalhadas do dia e da semana atual, atendendo ao segundo critério de aceite da US02. A segmentação por status (pendente/feito) torna a rotina mais gerenciável. Esse sistema de marcadores foi escolhido para oferecer um feedback visual rápido, com uma interface leve.
+
+<div align="center">
+  <sub>Tela de checklist pré voo:</sub><br>
+  <img src="../assets/checklist1.png" width="100%" alt="Tela de checklist:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+Essa tela atende diretamente à US01 e à US03, ao organizar as tarefas específicas de cada voo e possibilitar que lembretes sejam disparados antes dos eventos. Essa tela tem um visual mais técnico, remetendo ao checklist real usado em operações de voo, com campos bem definidos e ícones representativos. O layout contribui para que o piloto não esqueça etapas importantes e ganhe confiança no cumprimento de sua agenda
+
+Sendo assim, no projeto MBFly, o protótipo de alta fidelidade foi fundamental para validar as escolhas de design, organização das telas e usabilidade do sistema antes mesmo do início da programação. Ele permitirá testar a interface com usuários, identificar melhorias e alinhar a proposta visual com os objetivos definidos nas user stories, garantindo uma construção mais assertiva e eficiente da aplicação final.
+
+##### Acesso pela ferramenta:
+[Link do protótipo pelo Figma](https://www.figma.com/design/oW9LgcQopR4yJSiIe70lHm/Untitled?node-id=0-1&t=51CFUGBKmgmNYbwf-1)
 
 ### 3.6. WebAPI e endpoints (Semana 05)
 
