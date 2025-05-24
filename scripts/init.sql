@@ -1,5 +1,5 @@
 -- Tabela de usuários (pilotos)
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id BIGSERIAL PRIMARY KEY,
     nome TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE usuarios (
 );
 
 -- Tabela de tarefas
-CREATE TABLE tarefas (
+CREATE TABLE IF NOT EXISTS tarefas (
     id BIGSERIAL PRIMARY KEY,
     titulo TEXT NOT NULL,
     descricao TEXT,
@@ -23,7 +23,7 @@ CREATE TABLE tarefas (
 );
 
 -- Tabela de voos
-CREATE TABLE voos (
+CREATE TABLE IF NOT EXISTS voos (
     id BIGSERIAL PRIMARY KEY,
     origem TEXT NOT NULL,
     destino TEXT NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE voos (
 );
 
 -- Tabela de pernoites
-CREATE TABLE pernoites (
+CREATE TABLE IF NOT EXISTS pernoites (
     id BIGSERIAL PRIMARY KEY,
     local TEXT NOT NULL,
     data DATE NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE pernoites (
 );
 
 -- Tabela de dias de folga
-CREATE TABLE dias_folga (
+CREATE TABLE IF NOT EXISTS dias_folga (
     id BIGSERIAL PRIMARY KEY,
     data DATE NOT NULL,
     motivo TEXT,
@@ -52,7 +52,7 @@ CREATE TABLE dias_folga (
 );
 
 -- Tabela de conexões entre voos
-CREATE TABLE conexoes (
+CREATE TABLE IF NOT EXISTS conexoes (
     id BIGSERIAL PRIMARY KEY,
     voo_id BIGINT REFERENCES voos(id) ON DELETE CASCADE,
     conectado_a BIGINT REFERENCES voos(id) ON DELETE CASCADE,

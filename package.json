@@ -8,7 +8,8 @@
     "dev": "nodemon server.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "init-db": "node scripts/runSQLScript.js"
+    "init-db": "node scripts/runSQLScript.js",
+    "init-db-psql": "psql -U seu_usuario -d nome_do_banco -f init.sql"
   },
   "dependencies": {
     "dotenv": "^10.0.0",

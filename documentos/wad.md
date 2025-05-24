@@ -162,19 +162,111 @@ Conectam dois voos consecutivos:
 #### Modelo físico com o Schema do BD
 📥 [Schema SQL completo](../scripts/init.sql)
 
-### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+### 3.1.1 BD e Models 
+Mesmo sem usar um ORM como o Sequelize, os models estão representados nas consultas SQL feitas nos controllers. Abaixo, mostramos como cada entidade é estruturada, com base nas operações de criação, leitura, atualização e remoção.
 
-### 3.2. Arquitetura (Semana 5)
+---
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+#### Campos e suas respectivas operações:
+#### Usuários
+**id**: inteiro, chave primária
+**nome**: texto, obrigatório
+**email**: texto, único, obrigatório
+**tipo_licenca***: texto, opcional
+**horas_voo_totais**: inteiro, padrão 0
+**aeroporto_base**: texto, opcional
 
-**Instruções para criação do diagrama de arquitetura**  
-- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
-- **View**: A camada responsável pela interface de usuário.
-- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
-  
-*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+- Criar: INSERT INTO usuarios (...);
+- Listar: SELECT id, nome, email, tipo_licenca, horas_voo_totais, aeroporto_base FROM usuarios;
+- Buscar por ID: SELECT * FROM usuarios WHERE id = $1;
+- Atualizar: UPDATE usuarios SET ... WHERE id = $1;
+- Deletar: DELETE FROM usuarios WHERE id = $1;
+
+#### Voos
+
+**id**: inteiro, chave primária
+**origem**: texto, obrigatório
+**destino**: texto, obrigatório
+**partida**: timestamp, obrigatório
+**chegada**: timestamp, obrigatório
+**tempo_voo**: inteiro (minutos), opcional
+**usuario_id**: inteiro, chave estrangeira para usuarios
+
+- Criar: INSERT INTO voos (origem, destino, partida, chegada, tempo_voo, usuario_id) VALUES (...);
+- Listar: SELECT * FROM voos;
+- Atualizar: UPDATE voos SET  (...) WHERE id = (...);
+- Deletar: DELETE FROM voos WHERE id = $1;
+
+#### Pernoites
+
+**id**: inteiro, chave primária
+**local**: texto, obrigatório
+**data**: data, obrigatório
+**duracao_noites**: inteiro, padrão 1
+**voo_id**: inteiro, chave estrangeira para voos, pode ser nulo
+**usuario_id**: inteiro, chave estrangeira para usuarios
+
+- Criar: INSERT INTO pernoites (local, data, duracao_noites, voo_id, usuario_id) VALUES (...);
+- Listar: SELECT * FROM pernoites;
+- Atualizar: UPDATE pernoites SET  (...) WHERE id = (...);
+- Deletar: DELETE FROM pernoites WHERE id = $1;
+
+#### Dias de folga
+**id**: inteiro, chave primária
+**data**: data, obrigatório
+**motivo**: texto, opcional
+**usuario_id**: inteiro, chave estrangeira para usuarios
+
+ - Criar: INSERT INTO dias-folga (data, motivo, usuario_id) VALUES (...);
+- Listar: SELECT * FROM dias-folga;
+- Atualizar: UPDATE dias-folga SET  (...) WHERE id = (...);
+- Deletar: DELETE FROM dias-folga WHERE id = $1;
+
+#### Conexões
+**id**: inteiro, chave primária
+**voo_id**: inteiro, chave estrangeira para voos
+**conectado_a**: inteiro, chave estrangeira para voos
+**tempo_conexao**: inteiro (minutos), opcional
+
+- Criar: INSERT INTO conexoes (voo_id, conectado_a, tempo_conexao) VALUES (...);
+- Listar: SELECT * FROM conexoes;
+- Atualizar: UPDATE conexoes SET  (...) WHERE id = (...);
+- Deletar: DELETE FROM conexoes WHERE id = $1;
+
+#### Tarefas
+**id**: inteiro, chave primária
+**titulo**: texto, obrigatório
+**descricao**: texto, opcional
+**data**: date, obrigatório 
+**hora_inicio**: time, opcional 
+**hora_fim**: time, opcional 
+**categoria**: texto, opcional 
+**prioridade**: texto, opcional 
+**status**: texto, padrão 'pendente'
+**usuario_id**: inteiro, chave estrangeira para usuarios 
+
+- Criar: INSERT INTO tarefas (voo_id, conectado_a, tempo_conexao) VALUES (...);
+- Listar: SELECT * FROM tarefas;
+- Buscar por ID: SELECT * FROM tarefas WHERE id = $1;
+- Atualizar: UPDATE tarefas SET  (...) WHERE id = (...);
+- Deletar: DELETE FROM tarefas WHERE id = $1;
+- Listar pro usuário: SELECT * FROM tarefas WHERE usuario = (...);
+
+### 3.2. Arquitetura 
+
+Um diagrama de arquitetura é como um "mapa do tesouro" do seu sistema, mostrando como cada peça (models, controllers, banco de dados) se encaixa e se comunica. Ele ajuda a equipe a visualizar o fluxo de dados e garantir que tudo funcione harmoniosamente, desde a requisição do usuário até a resposta final.
+
+<div align="center">
+  <sub>Arquitetura:</sub><br>
+  <img src="../assets/arquitetura.png" width="100%" alt="modelo"><br>
+  <sup>Fonte: Desenvolvido por Mirela Schneider Bianchi</sup>
+</div>
+
+[Imagem acima em melhor visualização](
+https://www.canva.com/design/DAGoZDRFANE/oYHsCCp_jHFhLAh5F3QOHA/edit?utm_content=DAGoZDRFANE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+Dessa forma, com o diagrama em mãos, fica claro como o MVC organiza seu projeto: os controllers gerenciam a lógica, o banco armazena os dados e as rotas direcionam cada ação. Essa visualização não só simplifica o desenvolvimento, mas também facilita futuras melhorias e manutenção!
+
 
 ### 3.3. Wireframes 
 
@@ -323,9 +415,59 @@ Sendo assim, no projeto MBFly, o protótipo de alta fidelidade foi fundamental p
 ##### Acesso pela ferramenta:
 [Link do protótipo pelo Figma](https://www.figma.com/design/oW9LgcQopR4yJSiIe70lHm/Untitled?node-id=0-1&t=51CFUGBKmgmNYbwf-1)
 
-### 3.6. WebAPI e endpoints (Semana 05)
+### 3.6. WebAPI e endpoints 
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
+#### Usuários
+
+| Método | Endpoint        | Descrição                  | Parâmetros / Corpo                                                                                                             |
+| ------ | --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| POST   | `/usuarios`     | Criar um novo usuário      | Corpo JSON: `{ nome, email, tipo_licenca, horas_voo_totais, aeroporto_base }`                                                  |
+| GET    | `/usuarios`     | Listar todos os usuários   | -                                                                                                                              |
+| GET    | `/usuarios/:id` | Buscar usuário pelo ID     | Parâmetro URL: `id` (ID do usuário)                                                                                            |
+| PUT    | `/usuarios/:id` | Atualizar dados do usuário | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ nome, email, tipo_licenca, horas_voo_totais, aeroporto_base }` |
+| DELETE | `/usuarios/:id` | Deletar usuário pelo ID    | Parâmetro URL: `id`                                                                                                            |
+
+#### Voos
+
+| Método | Endpoint    | Descrição              | Parâmetros / Corpo                                                                                                          |
+| ------ | ----------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| POST   | `/voos`     | Criar um novo voo      | Corpo JSON: `{ origem, destino, partida, chegada, tempo_voo, usuario_id }`                                                  |
+| GET    | `/voos`     | Listar todos os voos   | -                                                                                                                           |
+| GET    | `/voos/:id` | Buscar voo pelo ID     | Parâmetro URL: `id`                                                                                                         |
+| PUT    | `/voos/:id` | Atualizar dados do voo | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ origem, destino, partida, chegada, tempo_voo, usuario_id }` |
+| DELETE | `/voos/:id` | Deletar voo pelo ID    | Parâmetro URL: `id`                                                                                                         |
+
+#### Pernoites
+
+| Método | Endpoint         | Descrição                   | Parâmetros / Corpo                                                                                                 |
+| ------ | ---------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| POST   | `/pernoites`     | Criar um novo pernoite      | Corpo JSON: `{ local, data, duracao_noites, voo_id, usuario_id }`                                                  |
+| GET    | `/pernoites`     | Listar todos os pernoites   | -                                                                                                                  |
+| GET    | `/pernoites/:id` | Buscar pernoite pelo ID     | Parâmetro URL: `id`                                                                                                |
+| PUT    | `/pernoites/:id` | Atualizar dados do pernoite | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ local, data, duracao_noites, voo_id, usuario_id }` |
+| DELETE | `/pernoites/:id` | Deletar pernoite pelo ID    | Parâmetro URL: `id`                                                                                                |
+
+#### Dias de folga
+
+| Método | Endpoint          | Descrição                     | Parâmetros / Corpo                                                                          |
+| ------ | ----------------- | ----------------------------- | ------------------------------------------------------------------------------------------- |
+| POST   | `/dias_folga`     | Criar um novo dia de folga    | Corpo JSON: `{ data, motivo, usuario_id }`                                                  |
+| GET    | `/dias_folga`     | Listar todos os dias de folga | -                                                                                           |
+| GET    | `/dias_folga/:id` | Buscar dia de folga pelo ID   | Parâmetro URL: `id`                                                                         |
+| PUT    | `/dias_folga/:id` | Atualizar dia de folga        | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ data, motivo, usuario_id }` |
+| DELETE | `/dias_folga/:id` | Deletar dia de folga pelo ID  | Parâmetro URL: `id`                                                                         |
+
+#### Conexões de voo
+
+| Método | Endpoint        | Descrição                  | Parâmetros / Corpo                                                                                    |
+| ------ | --------------- | -------------------------- | ----------------------------------------------------------------------------------------------------- |
+| POST   | `/conexoes`     | Criar uma nova conexão     | Corpo JSON: `{ voo_id, conectado_a, tempo_conexao }`                                                  |
+| GET    | `/conexoes`     | Listar todas as conexões   | -                                                                                                     |
+| GET    | `/conexoes/:id` | Buscar conexão pelo ID     | Parâmetro URL: `id`                                                                                   |
+| PUT    | `/conexoes/:id` | Atualizar dados da conexão | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ voo_id, conectado_a, tempo_conexao }` |
+| DELETE | `/conexoes/:id` | Deletar conexão pelo ID    | Parâmetro URL: `id`                                                                                   |
+
+
 
 ### 3.7 Interface e Navegação (Semana 07)
 
