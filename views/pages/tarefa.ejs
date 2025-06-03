@@ -12,49 +12,223 @@
     <!-- Menu lateral -->
     <aside class="sidebar">
       <ul>
-        <li><a href="/api/inicio"><img src="/assets/profile-icon.png" alt="Inicio"> Inicio</a></li>
-        <li class="active"><a href="/api/tarefa"><img src="/assets/calendar-icon.png" alt="Tarefas"> Tarefas</a></li>
-        <li><a href="/api/checklist"><img src="/assets/checklist-icon.png" alt="Checklist"> Checklist</a></li>
+        <li><a href="/"><img src="/assets/profile-icon.png" alt="Inicio"> Inicio</a></li>
+        <li class="active"><a href="/tarefa"><img src="/assets/calendar-icon.png" alt="Tarefas"> Tarefas</a></li>
+        <li><a href="/checklist"><img src="/assets/checklist-icon.png" alt="Checklist"> Checklist</a></li>
       </ul>
     </aside>
 
-    <!-- Conteúdo -->
+    <!-- Conteúdo principal -->
     <main class="content">
-      <!-- Cabeçalho com título e data -->
+      <!-- Cabeçalho -->
       <header class="header">
         <h1>Atividades</h1>
         <h2><%= dataAtual %></h2>
       </header>
 
-      <!-- Legenda -->
-      <section class="legend">
-        <strong>Legenda:</strong>
-        <div class="legend-item">
-          <span>Feito:-</span>
-          <span>Pendente:X</span>
-        </div>
+      <!-- Formulário de nova tarefa -->
+      <section class="new-task-form">
+        <h3>Nova Tarefa</h3>
+        <form id="taskForm">
+          <div class="form-group">
+            <input type="text" id="titulo" name="titulo" placeholder="Título da tarefa" required>
+          </div>
+          <div class="form-group">
+            <textarea id="descricao" name="descricao" placeholder="Descrição" required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="hora_inicio">Hora Início:</label>
+              <input type="time" id="hora_inicio" name="hora_inicio" required>
+            </div>
+            <div class="form-group">
+              <label for="hora_fim">Hora Fim:</label>
+              <input type="time" id="hora_fim" name="hora_fim" required>
+            </div>
+            <div class="form-group">
+              <label for="prioridade">Prioridade:</label>
+              <select id="prioridade" name="prioridade" required>
+                <option value="baixa">Baixa</option>
+                <option value="media">Média</option>
+                <option value="alta">Alta</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">Adicionar Tarefa</button>
+        </form>
       </section>
 
-      <!-- Tarefas -->
+      <!-- Lista de tarefas -->
       <section class="tasks-grid">
-        <% for (let i = 0; i < 12; i++) { %>
-          <% const tarefa = atividades[i]; %>
-          <% if (tarefa) { %>
-            <div class="task-card <%= tarefa.status === 'feito' ? 'done' : 'pending' %>">
-              <div class="status-symbol">
-                <%= tarefa.status === 'feito' ? '-' : 'X' %>
+        <% if (tarefas && tarefas.length > 0) { %>
+          <% tarefas.forEach(function(tarefa) { %>
+            <div class="task-card" data-id="<%= tarefa.id %>">
+              <div class="task-header">
+                <h4><%= tarefa.titulo %></h4>
+                <div class="task-actions">
+                  <button class="btn-edit" onclick="editarTarefa(<%= tarefa.id %>)">✏️</button>
+                  <button class="btn-delete" onclick="excluirTarefa(<%= tarefa.id %>)">🗑️</button>
+                </div>
               </div>
               <p><%= tarefa.descricao %></p>
+              <div class="task-footer">
+                <span class="time">
+                  <%= tarefa.hora_inicio %> - <%= tarefa.hora_fim %>
+                </span>
+                <span class="priority <%= tarefa.prioridade %>">
+                  <%= tarefa.prioridade %>
+                </span>
+              </div>
             </div>
-          <% } else { %>
-            <div class="task-card empty"></div>
-          <% } %>
+          <% }); %>
+        <% } else { %>
+          <p class="no-tasks">Nenhuma tarefa encontrada. Adicione uma nova tarefa!</p>
         <% } %>
       </section>
     </main>
   </div>
 
-  <!-- Rodapé colorido -->
- 
+  <!-- Modal de edição -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Editar Tarefa</h3>
+      <form id="editForm">
+        <input type="hidden" id="editId">
+        <div class="form-group">
+          <input type="text" id="editTitulo" name="titulo" placeholder="Título da tarefa" required>
+        </div>
+        <div class="form-group">
+          <textarea id="editDescricao" name="descricao" placeholder="Descrição" required></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="editHoraInicio">Hora Início:</label>
+            <input type="time" id="editHoraInicio" name="hora_inicio" required>
+          </div>
+          <div class="form-group">
+            <label for="editHoraFim">Hora Fim:</label>
+            <input type="time" id="editHoraFim" name="hora_fim" required>
+          </div>
+          <div class="form-group">
+            <label for="editPrioridade">Prioridade:</label>
+            <select id="editPrioridade" name="prioridade" required>
+              <option value="baixa">Baixa</option>
+              <option value="media">Média</option>
+              <option value="alta">Alta</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Atualizar Tarefa</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Funções para manipulação de tarefas
+    document.getElementById('taskForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+      
+      try {
+        const response = await fetch('/tarefa/tarefas', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          const errorData = await response.json();
+          alert('Erro ao criar tarefa: ' + (errorData.error || 'Erro desconhecido'));
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao criar tarefa: ' + error.message);
+      }
+    });
+
+    async function excluirTarefa(id) {
+      if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+        try {
+          const response = await fetch(`/tarefa/tarefas/${id}`, {
+            method: 'DELETE'
+          });
+          
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            alert('Erro ao excluir tarefa');
+          }
+        } catch (error) {
+          console.error('Erro:', error);
+          alert('Erro ao excluir tarefa');
+        }
+      }
+    }
+
+    // Modal de edição
+    const modal = document.getElementById('editModal');
+    const span = document.getElementsByClassName('close')[0];
+
+    span.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    async function editarTarefa(id) {
+      try {
+        const response = await fetch(`/tarefa/tarefas/${id}`);
+        const tarefa = await response.json();
+        
+        document.getElementById('editId').value = tarefa.id;
+        document.getElementById('editTitulo').value = tarefa.titulo;
+        document.getElementById('editDescricao').value = tarefa.descricao;
+        document.getElementById('editHoraInicio').value = tarefa.hora_inicio;
+        document.getElementById('editHoraFim').value = tarefa.hora_fim;
+        document.getElementById('editPrioridade').value = tarefa.prioridade;
+        
+        modal.style.display = 'block';
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao carregar tarefa');
+      }
+    }
+
+    document.getElementById('editForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editId').value;
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+      
+      try {
+        const response = await fetch(`/tarefa/tarefas/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          alert('Erro ao atualizar tarefa');
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao atualizar tarefa');
+      }
+    });
+  </script>
 </body>
 </html>

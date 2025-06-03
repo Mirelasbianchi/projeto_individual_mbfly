@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas
-app.use('/api', routes);
+app.use('/', routes);
 
 // Porta do servidor
 const PORT = 3001;

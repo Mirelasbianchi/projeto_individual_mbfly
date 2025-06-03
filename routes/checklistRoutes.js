@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 });
 
 // Rotas da API
-router.get('/api', checklistController.getChecklist);
-router.put('/api/:id', checklistController.updateChecklistItem);
+router.get('/items', checklistController.getChecklist);
+router.put('/items/:id', checklistController.updateChecklistItem);
 
 module.exports = router;

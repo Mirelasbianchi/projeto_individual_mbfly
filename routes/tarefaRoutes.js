@@ -3,31 +3,13 @@ const router = express.Router();
 const TarefaController = require('../controllers/tarefaController');
 
 // Rota para renderizar a página
-router.get('/', (req, res) => {
-  // Formata a data atual como DD/MM/YYYY
-  const data = new Date();
-  const dia = String(data.getDate()).padStart(2, '0');
-  const mes = String(data.getMonth() + 1).padStart(2, '0');
-  const ano = data.getFullYear();
-  const dataAtual = `${dia}/${mes}/${ano}`;
-  
-  // Lista de atividades de exemplo
-  const atividades = [
-    { descricao: "Verificar documentação", status: "feito" },
-    { descricao: "Checar combustível", status: "pendente" },
-    { descricao: "Revisar plano de voo", status: "pendente" },
-    { descricao: "Inspeção visual", status: "feito" },
-    { descricao: "Verificar meteorologia", status: "pendente" }
-  ];
-  
-  res.render('tarefa', { dataAtual, atividades });
-});
+router.get('/', TarefaController.renderizarPagina);
 
-// CRUD básico
-router.post('/api', TarefaController.criarTarefa);
-router.get('/api', TarefaController.listarTarefas);
-router.get('/api/:id', TarefaController.buscarTarefaPorId);
-router.put('/api/:id', TarefaController.editarTarefa);
-router.delete('/api/:id', TarefaController.excluirTarefa);
+// API Routes
+router.get('/tarefas', TarefaController.listarTarefas);
+router.post('/tarefas', TarefaController.criarTarefa);
+router.get('/tarefas/:id', TarefaController.buscarTarefaPorId);
+router.put('/tarefas/:id', TarefaController.atualizarTarefa);
+router.delete('/tarefas/:id', TarefaController.excluirTarefa);
 
 module.exports = router;
