@@ -84,6 +84,62 @@ http://localhost:3000
 
 ---
 
+## 📦 Configuração do Banco de Dados
+Para configurar o banco de dados PostgreSQL, primeiro crie um arquivo .env na raiz do projeto com as seguintes variáveis de ambiente:
+
+```bash
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=seu_usuario_postgres
+DB_PASSWORD=sua_senha_postgres
+DB_NAME=nome_do_banco
+DB_SSL=false
+```
+
+Após configurar o arquivo .env, execute o script de inicialização do banco de dados com o comando:
+
+```bash
+npm run init-db
+```
+
+Este comando irá executar o arquivo init.sql que contém toda a estrutura inicial das tabelas, incluindo as tabelas de usuários e tarefas com seus relacionamentos.
+
+🔄 Migrações do Banco de Dados
+O arquivo init.sql contém as migrações necessárias para criar a estrutura completa do banco. 
+Para executar manualmente as migrações (caso necessário), utilize:
+
+```bash
+psql -U seu_usuario -d nome_do_banco -f scripts/init.sql
+```
+
+## 🚀 Testando a API
+A API oferece endpoints RESTful para todas as operações CRUD. Você pode testá-los:
+
+Com Postman
+Importe a coleção de requisições disponível em docs/api_collection.json
+
+Exemplos básicos:
+Criar tarefa:
+
+```bash
+curl -X POST http://localhost:3001/api/tarefas \
+-H "Content-Type: application/json" \
+-d '{"titulo":"Reunião com cliente", "descricao":"Discutir requisitos", "usuario_id":1}'
+Listar tarefas:
+```
+
+
+```bash
+curl -X GET http://localhost:3001/api/tarefas
+```
+
+Testes automatizados:
+
+```bash
+npm test
+```
+
+
 ## 📋 Licença
 
 Este projeto está licenciado sob a licença [MIT](https://opensource.org/licenses/MIT).

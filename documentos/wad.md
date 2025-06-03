@@ -169,12 +169,12 @@ Mesmo sem usar um ORM como o Sequelize, os models estão representados nas consu
 
 #### Campos e suas respectivas operações:
 #### Usuários
-**id**: inteiro, chave primária
-**nome**: texto, obrigatório
-**email**: texto, único, obrigatório
-**tipo_licenca***: texto, opcional
-**horas_voo_totais**: inteiro, padrão 0
-**aeroporto_base**: texto, opcional
+**id**: inteiro, chave primária;
+**nome**: texto, obrigatório;
+**email**: texto, único, obrigatório;
+**tipo_licenca***: texto, opcional;
+**horas_voo_totais**: inteiro, padrão 0;
+**aeroporto_base**: texto, opcional;
 
 - Criar: INSERT INTO usuarios (...);
 - Listar: SELECT id, nome, email, tipo_licenca, horas_voo_totais, aeroporto_base FROM usuarios;
@@ -184,13 +184,13 @@ Mesmo sem usar um ORM como o Sequelize, os models estão representados nas consu
 
 #### Voos
 
-**id**: inteiro, chave primária
-**origem**: texto, obrigatório
-**destino**: texto, obrigatório
-**partida**: timestamp, obrigatório
-**chegada**: timestamp, obrigatório
-**tempo_voo**: inteiro (minutos), opcional
-**usuario_id**: inteiro, chave estrangeira para usuarios
+**id**: inteiro, chave primária;
+**origem**: texto, obrigatório;
+**destino**: texto, obrigatório;
+**partida**: timestamp, obrigatório;
+**chegada**: timestamp, obrigatório;
+**tempo_voo**: inteiro (minutos), opcional;
+**usuario_id**: inteiro, chave estrangeira para usuarios;
 
 - Criar: INSERT INTO voos (origem, destino, partida, chegada, tempo_voo, usuario_id) VALUES (...);
 - Listar: SELECT * FROM voos;
@@ -199,12 +199,12 @@ Mesmo sem usar um ORM como o Sequelize, os models estão representados nas consu
 
 #### Pernoites
 
-**id**: inteiro, chave primária
-**local**: texto, obrigatório
-**data**: data, obrigatório
-**duracao_noites**: inteiro, padrão 1
-**voo_id**: inteiro, chave estrangeira para voos, pode ser nulo
-**usuario_id**: inteiro, chave estrangeira para usuarios
+**id**: inteiro, chave primária;
+**local**: texto, obrigatório;
+**data**: data, obrigatório;
+**duracao_noites**: inteiro, padrão 1;
+**voo_id**: inteiro, chave estrangeira para voos, pode ser nulo;
+**usuario_id**: inteiro, chave estrangeira para usuarios;
 
 - Criar: INSERT INTO pernoites (local, data, duracao_noites, voo_id, usuario_id) VALUES (...);
 - Listar: SELECT * FROM pernoites;
@@ -212,10 +212,10 @@ Mesmo sem usar um ORM como o Sequelize, os models estão representados nas consu
 - Deletar: DELETE FROM pernoites WHERE id = $1;
 
 #### Dias de folga
-**id**: inteiro, chave primária
-**data**: data, obrigatório
-**motivo**: texto, opcional
-**usuario_id**: inteiro, chave estrangeira para usuarios
+**id**: inteiro, chave primária;
+**data**: data, obrigatório;
+**motivo**: texto, opcional;
+**usuario_id**: inteiro, chave estrangeira para usuarios;
 
  - Criar: INSERT INTO dias-folga (data, motivo, usuario_id) VALUES (...);
 - Listar: SELECT * FROM dias-folga;
@@ -223,10 +223,10 @@ Mesmo sem usar um ORM como o Sequelize, os models estão representados nas consu
 - Deletar: DELETE FROM dias-folga WHERE id = $1;
 
 #### Conexões
-**id**: inteiro, chave primária
-**voo_id**: inteiro, chave estrangeira para voos
-**conectado_a**: inteiro, chave estrangeira para voos
-**tempo_conexao**: inteiro (minutos), opcional
+**id**: inteiro, chave primária;
+**voo_id**: inteiro, chave estrangeira para voos;
+**conectado_a**: inteiro, chave estrangeira para voos;
+**tempo_conexao**: inteiro (minutos), opcional;
 
 - Criar: INSERT INTO conexoes (voo_id, conectado_a, tempo_conexao) VALUES (...);
 - Listar: SELECT * FROM conexoes;
@@ -234,16 +234,16 @@ Mesmo sem usar um ORM como o Sequelize, os models estão representados nas consu
 - Deletar: DELETE FROM conexoes WHERE id = $1;
 
 #### Tarefas
-**id**: inteiro, chave primária
-**titulo**: texto, obrigatório
-**descricao**: texto, opcional
-**data**: date, obrigatório 
-**hora_inicio**: time, opcional 
-**hora_fim**: time, opcional 
-**categoria**: texto, opcional 
-**prioridade**: texto, opcional 
-**status**: texto, padrão 'pendente'
-**usuario_id**: inteiro, chave estrangeira para usuarios 
+**id**: inteiro, chave primária;
+**titulo**: texto, obrigatório;
+**descricao**: texto, opcional;
+**data**: date, obrigatório;
+**hora_inicio**: time, opcional;
+**hora_fim**: time, opcional; 
+**categoria**: texto, opcional; 
+**prioridade**: texto, opcional;
+**status**: texto, padrão 'pendente';
+**usuario_id**: inteiro, chave estrangeira para usuarios; 
 
 - Criar: INSERT INTO tarefas (voo_id, conectado_a, tempo_conexao) VALUES (...);
 - Listar: SELECT * FROM tarefas;
