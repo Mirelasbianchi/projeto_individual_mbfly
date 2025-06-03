@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Atividades</title>
+  <link rel="stylesheet" href="/css/tarefa.css">
+</head>
+<body>
+  <!-- Container principal -->
+  <div class="main-container">
+    
+    <!-- Menu lateral -->
+    <aside class="sidebar">
+      <ul>
+        <li><a href="/api/inicio"><img src="/assets/profile-icon.png" alt="Inicio"> Inicio</a></li>
+        <li class="active"><a href="/api/tarefa"><img src="/assets/calendar-icon.png" alt="Tarefas"> Tarefas</a></li>
+        <li><a href="/api/checklist"><img src="/assets/checklist-icon.png" alt="Checklist"> Checklist</a></li>
+      </ul>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="content">
+      <!-- Cabeçalho com título e data -->
+      <header class="header">
+        <h1>Atividades</h1>
+        <h2><%= dataAtual %></h2>
+      </header>
+
+      <!-- Legenda -->
+      <section class="legend">
+        <strong>Legenda:</strong>
+        <div class="legend-item">
+          <span>Feito:-</span>
+          <span>Pendente:X</span>
+        </div>
+      </section>
+
+      <!-- Tarefas -->
+      <section class="tasks-grid">
+        <% for (let i = 0; i < 12; i++) { %>
+          <% const tarefa = atividades[i]; %>
+          <% if (tarefa) { %>
+            <div class="task-card <%= tarefa.status === 'feito' ? 'done' : 'pending' %>">
+              <div class="status-symbol">
+                <%= tarefa.status === 'feito' ? '-' : 'X' %>
+              </div>
+              <p><%= tarefa.descricao %></p>
+            </div>
+          <% } else { %>
+            <div class="task-card empty"></div>
+          <% } %>
+        <% } %>
+      </section>
+    </main>
+  </div>
+
+  <!-- Rodapé colorido -->
+ 
+</body>
+</html>

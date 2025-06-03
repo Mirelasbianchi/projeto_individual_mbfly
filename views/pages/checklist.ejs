@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Checklist Pré Voo</title>
+    <link rel="stylesheet" href="/css/checklist.css">
+</head>
+<body>
+    <!-- Container principal -->
+    <div class="main-container">
+        <!-- Menu lateral -->
+        <aside class="sidebar">
+            <ul>
+                <li><a href="/api/inicio"><img src="/assets/profile-icon.png" alt="Inicio"> Inicio</a></li>
+                <li><a href="/api/tarefa"><img src="/assets/calendar-icon.png" alt="Tarefas"> Tarefas</a></li>
+                <li class="active"><a href="/api/checklist"><img src="/assets/checklist-icon.png" alt="Checklist"> Checklist</a></li>
+            </ul>
+        </aside>
+
+        <!-- Conteúdo principal -->
+        <main class="content">
+            <h1>Checklist pré voo</h1>
+
+            <div class="checklist-grid">
+                <!-- Coluna 1 -->
+                <div class="checklist-section">
+                    <div class="checklist-box">
+                        <h2>Documentação</h2>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="doc1">
+                                <label for="doc1">Certificado de Matrícula (RAB) – a bordo</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="doc2">
+                                <label for="doc2">Certificado de Aeronavegabilidade – válido</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="doc3">
+                                <label for="doc3">Manual da aeronave – a bordo</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="doc4">
+                                <label for="doc4">Seguro – válido</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="doc5">
+                                <label for="doc5">Licença e CMA do piloto – válidos</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="checklist-box">
+                        <h2>Asas do avião</h2>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="asa1">
+                                <label for="asa1">Certificado de Matrícula (RAB) – a bordo</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="asa2">
+                                <label for="asa2">Certificado de Aeronavegabilidade – válido</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="checklist-box">
+                        <h2>Inspeção externa</h2>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="ext1">
+                                <label for="ext1">Porta – verificar condição</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="ext2">
+                                <label for="ext2">Janelas – limpas</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="ext3">
+                                <label for="ext3">Combustível – verificar quantidade e qualidade</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="ext4">
+                                <label for="ext4">Pneus e freios – verificar pressão e desgaste</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="ext5">
+                                <label for="ext5">Trem de pouso – sem danos ou vazamentos</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Coluna 2 -->
+                <div class="checklist-section">
+                    <div class="checklist-box">
+                        <h2>Cabine (Interior)</h2>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="cab1">
+                                <label for="cab1">Chave da ignição – OFF</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cab2">
+                                <label for="cab2">Mistura – CORTADA</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cab3">
+                                <label for="cab3">Magnetos – OFF</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cab4">
+                                <label for="cab4">Chave master (bateria) – ON</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cab5">
+                                <label for="cab5">Luzes de navegação – testar</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cab6">
+                                <label for="cab6">Luz de beacon – testar</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cab7">
+                                <label for="cab7">Flaps – BAIXAR totalmente para inspeção</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cab8">
+                                <label for="cab8">Chave master – OFF</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="checklist-box">
+                        <h2>Nariz</h2>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="nariz1">
+                                <label for="nariz1">Hélice – sem rachaduras ou danos</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="nariz2">
+                                <label for="nariz2">Spinner – firme</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="checklist-box">
+                        <h2>Cabine (Final)</h2>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="cabf1">
+                                <label for="cabf1">Mistura – RICA</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cabf2">
+                                <label for="cabf2">Chave master – ON</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

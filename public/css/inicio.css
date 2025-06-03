@@ -1,0 +1,101 @@
+/* Reset e estilos globais */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #4B0082;
+}
+
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Seção Hero */
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.text-content {
+    flex: 1;
+    padding-right: 2rem;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.start-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #00BFFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.start-button:hover {
+    background-color: #0099CC;
+}
+
+.image-content {
+    flex: 1;
+    text-align: right;
+}
+
+.plane-icon {
+    width: 200px;
+    height: auto;
+}
+
+/* Seção de Funcionalidades */
+.features-section {
+    padding: 2rem 0;
+}
+
+.features-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.features-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.feature-card {
+    flex: 1;
+    background-color: #2E0854;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.feature-card img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    filter: invert(1);
+} 

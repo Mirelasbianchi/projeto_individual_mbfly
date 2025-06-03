@@ -2,13 +2,13 @@ const pool = require('../config/database');
 
 // Criar uma nova tarefa
 exports.criarTarefa = async (req, res) => {
-  const { titulo, descricao, data, hora_inicio, hora_fim, categoria, prioridade, usuario_id } = req.body;
+  const { titulo, descricao, hora_inicio, hora_fim, prioridade } = req.body;
 
   const query = `
-    INSERT INTO tarefas (titulo, descricao, data, hora_inicio, hora_fim, categoria, prioridade, usuario_id)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    INSERT INTO tarefas (titulo, descricao, hora_inicio, hora_fim, prioridade)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *`;
-  const values = [titulo, descricao, data, hora_inicio, hora_fim, categoria, prioridade, usuario_id];
+  const values = [titulo, descricao, hora_inicio, hora_fim, prioridade];
 
   try {
     const result = await pool.query(query, values);
@@ -20,7 +20,7 @@ exports.criarTarefa = async (req, res) => {
 
 // Listar todas as tarefas
 exports.listarTarefas = async (req, res) => {
-  const query = 'SELECT * FROM tarefas ORDER BY data, hora_inicio';
+  const query = 'SELECT * FROM tarefas ORDER BY hora_inicio';
 
   try {
     const result = await pool.query(query);
@@ -51,15 +51,14 @@ exports.buscarTarefaPorId = async (req, res) => {
 // Atualizar uma tarefa
 exports.editarTarefa = async (req, res) => {
   const { id } = req.params;
-  const { titulo, descricao, data, hora_inicio, hora_fim, categoria, prioridade, status } = req.body;
+  const { titulo, descricao, hora_inicio, hora_fim, prioridade } = req.body;
 
   const query = `
     UPDATE tarefas
-    SET titulo = $1, descricao = $2, data = $3, hora_inicio = $4, hora_fim = $5, 
-        categoria = $6, prioridade = $7, status = $8
-    WHERE id = $9
+    SET titulo = $1, descricao = $2, hora_inicio = $3, hora_fim = $4, prioridade = $5
+    WHERE id = $6
     RETURNING *`;
-  const values = [titulo, descricao, data, hora_inicio, hora_fim, categoria, prioridade, status, id];
+  const values = [titulo, descricao, hora_inicio, hora_fim, prioridade, id];
 
   try {
     const result = await pool.query(query, values);
@@ -85,21 +84,6 @@ exports.excluirTarefa = async (req, res) => {
       return res.status(404).json({ message: 'Tarefa não encontrada' });
     }
     res.status(200).json({ message: 'Tarefa excluída com sucesso' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-// Listar tarefas por usuário
-exports.listarTarefasPorUsuario = async (req, res) => {
-  const { usuario_id } = req.params;
-
-  const query = 'SELECT * FROM tarefas WHERE usuario_id = $1 ORDER BY data, hora_inicio';
-  const values = [usuario_id];
-
-  try {
-    const result = await pool.query(query, values);
-    res.status(200).json(result.rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
