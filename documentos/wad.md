@@ -560,7 +560,84 @@ Características principais:
   <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
 </div>
 
-O frontend entregue nesta semana marca o início da interface gráfica da aplicação MBFly. Com as três telas fundamentais estruturadas, o projeto já permite a navegação básica e a visualização de informações essenciais para os pilotos. As próximas etapas incluirão a adição de funcionalidades dinâmicas, novas telas, integração com backend e melhorias visuais.
+####  Interface e Estilização
+
+#### Cores e Temas
+O sistema utiliza uma paleta de cores consistente:
+
+- Cores primárias para elementos principais
+- Cores de destaque para ações importantes
+- Cores de feedback para sucesso/erro
+- Cores neutras para elementos secundários
+
+#### Responsividade
+A interface é totalmente responsiva:
+
+- Layout adaptável para diferentes tamanhos de tela
+- Menu colapsável em dispositivos móveis
+- Cards reorganizados em grade ou lista conforme necessário
+
+####  Integração Frontend-Backend
+
+#### Fetch API
+Todas as interações com o backend são feitas através da Fetch API:
+
+```javascript
+// Exemplo de criação de tarefa
+async function criarTarefa(dados) {
+  const response = await fetch('/api/tarefas', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dados)
+  });
+  return await response.json();
+}
+```
+
+#### Feedback Visual
+O sistema fornece feedback visual para todas as operações:
+
+- Indicadores de carregamento
+- Mensagens de sucesso/erro
+- Animações suaves para transições
+- Confirmações para ações destrutivas
+
+####  Banco de Dados
+
+#### Estrutura
+O banco de dados segue com as seguintes tabelas:
+
+```sql
+CREATE TABLE tarefas (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  titulo TEXT NOT NULL,
+  descricao TEXT,
+  hora_inicio TEXT,
+  hora_fim TEXT,
+  prioridade TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE checklist (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  titulo TEXT NOT NULL,
+  concluido BOOLEAN DEFAULT FALSE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+####  Atualizações e Melhorias
+
+#### Versão Atual 
+- Interface visual completa
+- CRUD de tarefas
+- Sistema de checklist
+- Feedback visual aprimorado
+- Responsividade em todas as páginas
+
+  O frontend entregue nesta semana marca o início da interface gráfica da aplicação MBFly. Com as três telas fundamentais estruturadas, o projeto já permite a navegação básica e a visualização de informações essenciais para os pilotos. As próximas etapas incluirão a adição de funcionalidades dinâmicas, novas telas, integração com backend e melhorias visuais.
 
 ---
 
