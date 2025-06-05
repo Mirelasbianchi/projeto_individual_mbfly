@@ -527,6 +527,12 @@ Funcionalidades previstas nesta tela:
 </div>
 
 <div align="center">
+  <sub>Tela de criar tarefas:</sub><br>
+  <img src="../assets/tarefas2.png" width="100%" alt="Tela de criar tarefas:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+<div align="center">
   <sub>Back-end:</sub><br>
   <img src="../assets/tarefascodigo.png" width="100%" alt="Back-end:"><br>
   <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
