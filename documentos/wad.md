@@ -469,9 +469,92 @@ Sendo assim, no projeto MBFly, o protótipo de alta fidelidade foi fundamental p
 
 
 
-### 3.7 Interface e Navegação (Semana 07)
+### 3.7 Interface e Navegação
 
-*Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+#### Navegação Geral
+O sistema MBFly utiliza o EJS (Embedded JavaScript Templates) como motor de templates para o frontend. Isso significa que, em vez de usar arquivos .html estáticos separados para cada página, o HTML está embutido dentro de arquivos .ejs, que são renderizados dinamicamente pelo backend Node.js.
+
+Essa abordagem facilita a reutilização de componentes como cabeçalhos, menus e rodapés, além de permitir a injeção de dados dinâmicos diretamente no HTML, o que será útil nas próximas etapas do sistema (como exibir listas de tarefas diretamente do banco de dados).
+
+#### Estrutura Geral do Frontend
+A estrutura do frontend segue uma organização clara e modular:
+- /views/: Pasta onde ficam os arquivos .ejs com a estrutura HTML de cada tela.
+- inicio.ejs: Tela inicial do sistema.
+- tarefas.ejs: Tela com a lista de tarefas.
+- checklist.ejs: Tela de checklist pré-voo.
+- /public/css: Arquivos css que definem a apresentação visual do site.
+
+<div align="center">
+  <sub>Estrutura geral:</sub><br>
+  <img src="../assets/geral.png" width="100%" alt="Estrutura geral:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+#### Tela Inicial 
+A tela inicial serve como página de boas-vindas ao sistema MBFly. Ela apresenta uma introdução ao sistema e orientações iniciais para os usuários.
+
+Elementos presentes:
+- Texto explicativo sobre a funcionalidade da plataforma.
+- Botão de navegação para as outras seções.
+- Layout simples e objetivo.
+
+<div align="center">
+  <sub>Tela de início:</sub><br>
+  <img src="../assets/iniciar.png" width="100%" alt="Tela de início:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+<div align="center">
+  <sub>Back-end:</sub><br>
+  <img src="../assets/iniciocodigo.png" width="100%" alt="Back-end:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+
+#### Tela de Tarefas
+Essa tela exibe uma lista de tarefas a serem realizadas pelos pilotos. A interface foi projetada para permitir que o piloto visualize rapidamente suas obrigações pendentes.
+
+Funcionalidades previstas nesta tela:
+- Visualização de tarefas listadas em formato de cards.
+- Botões de adicionar/editar/remover tarefas.
+- Estilo visual com cores contrastantes para destacar informações importantes.
+- Estrutura pronta para integração com banco de dados e salvamento de tarefas.
+
+<div align="center">
+  <sub>Tela de tarefas:</sub><br>
+  <img src="../assets/tarefas1.png" width="100%" alt="Tela de tarefas:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+<div align="center">
+  <sub>Back-end:</sub><br>
+  <img src="../assets/tarefascodigo.png" width="100%" alt="Back-end:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+
+#### Tela de Checklist Pré-Voo
+A tela de checklist pré-voo simula uma lista de verificação que o piloto deve cumprir antes da decolagem. A ideia é reproduzir uma rotina real de conferência, com marcação de itens.
+
+Características principais:
+- Lista de itens com caixas de seleção (checkboxes).
+- Interface limpa para facilitar o preenchimento rápido.
+- Estrutura pronta para integração com banco de dados e salvamento de estado.
+
+
+<div align="center">
+  <sub>Tela de checklist:</sub><br>
+  <img src="../assets/checklist2.png" width="100%" alt="Tela de checklist:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+<div align="center">
+  <sub>Back-end:</sub><br>
+  <img src="../assets/checklistcodigo.png" width="100%" alt="Back-end:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+O frontend entregue nesta semana marca o início da interface gráfica da aplicação MBFly. Com as três telas fundamentais estruturadas, o projeto já permite a navegação básica e a visualização de informações essenciais para os pilotos. As próximas etapas incluirão a adição de funcionalidades dinâmicas, novas telas, integração com backend e melhorias visuais.
 
 ---
 
