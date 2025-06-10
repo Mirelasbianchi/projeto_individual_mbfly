@@ -12,3 +12,15 @@ CREATE TABLE IF NOT EXISTS checklist (
   titulo TEXT NOT NULL,
   marcado BOOLEAN DEFAULT false
 );
+
+CREATE TABLE usuarios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nome TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  senha_hash TEXT NOT NULL,
+  tipo_licenca TEXT,
+  horas_voo_totais INTEGER DEFAULT 0,
+  aeroporto_base TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
