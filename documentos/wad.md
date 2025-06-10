@@ -17,7 +17,7 @@
 
 ## <a name="c1"></a>1. Introdução 
 
-O sistema MBFly será um gerenciador de tarefas online voltado à organização pessoal e aumento da produtividade de pilotos de avião. De forma simples e intuitiva, permitirá ao usuário criar tarefas, definir prazos, organizá-las por categorias como voos, estudos, checagens e escalas, além de acompanhar seu progresso. Com visualização em calendário, filtros por prioridade e lembretes, o sistema ajudará a manter o foco e o controle da rotina. Totalmente responsivo, poderá ser acessado em qualquer dispositivo. Inspirado no nome da desenvolvedora, o MBFly busca unir funcionalidade e identidade, sendo ideal para pilotos que desejam deixar suas rotinas mais eficientes.
+O sistema MBFly será um gerenciador de tarefas online voltado à organização pessoal e aumento da produtividade de pilotos de avião. De forma simples e intuitiva, permitirá ao usuário criar tarefas, definir prazos, organizá-las por categorias como voos, estudos, checagens e escalas, além de acompanhar seu progresso. Inspirado no nome da desenvolvedora, o MBFly busca unir funcionalidade e identidade, sendo ideal para pilotos que desejam deixar suas rotinas mais eficientes.
 
 ---
 
@@ -73,91 +73,64 @@ Dessa forma, as User Stories são importantes para o projeto, pois garantem que 
 ##### Visão maximalista do diagrama do BD
 ```mermaid
 erDiagram
-    usuarios ||--o{ tarefas : "1:N"
-    usuarios ||--o{ voos : "1:N"
-    usuarios ||--o{ pernoites : "1:N"
-    usuarios ||--o{ dias_folga : "1:N"
-    voos ||--o{ conexoes : "1:N"
-    voos ||--o{ pernoites : "0..1:1"
+    usuarios ||--o{ tarefas : "possui"
+    tarefas ||--o{ checklist : "contém"
+    
+    usuarios {
+        int id PK
+        varchar(100) nome
+        varchar(100) email UK
+        timestamp data_cadastro
+    }
+    
+    tarefas {
+        int id PK
+        varchar(255) titulo
+        text descricao
+        time hora_inicio
+        time hora_fim
+        varchar(50) prioridade "baixa,media,alta"
+        int usuario_id FK
+    }
+    
+    checklist {
+        int id PK
+        text titulo
+        boolean marcado "default: false"
+        int tarefa_id FK
+    }
 ```
 
 ##### Entidades e Relacionamentos:
 
-##### Usuários (`usuarios`)
-Representam os pilotos. Cada piloto possui:
-- Nome
-- E-mail
-- Tipo de licença
-- Total de horas de voo
-- Aeroporto base
+Usuários (usuarios)
+Representam os profissionais que utilizam o sistema:
+- Perfil (piloto, comissário, mecânico) - define as permissões e tipos de tarefas acessíveis
+- Dados cadastrais (nome, e-mail único)
+- Data de cadastro - registro automático no sistema
 
-**Relacionamentos:**
-- Um usuário pode ter várias tarefas, voos, pernoites e dias de folga.
-
----
-
-#### Tarefas (`tarefas`)
+Tarefas (tarefas)
 Representam compromissos organizados por categoria:
-- Categoria (voo, descanso, pessoal)
-- Data
-- Horários
-- Prioridade
-- Status
+- Categoria (voo, descanso, pessoal) - classificação principal
+- Temporalidade (data, hora_início, hora_fim)
+- Prioridade (baixa, média, alta) - gestão de urgência
+- Status (pendente, concluído, cancelado) - acompanhamento
 
-**Relacionamentos:**
-- Cada tarefa pertence a um único usuário.
+Checklist (checklist)
+Representam verificações técnicas:
+- Categoria aeronáutica (fuselagem, motor, cabine, trem_de_pouso)
+- Controle (marcação booleana) - indica conclusão
+- Descrição - detalhamento do item
 
----
-
-#### Voos (`voos`)
-Guardam informações sobre:
-- Origem
-- Destino
-- Horários
-- Duração
-
-**Relacionamentos:**
-- Cada voo pertence a um único usuário.
-- Pode estar relacionado a uma ou mais conexões.
-- Pode estar relacionado a um pernoite.
-
----
-
-#### Pernoites (`pernoites`)
-Registram:
-- Local de hospedagem
-- Tempo de permanência
-
-**Relacionamentos:**
-- Um pernoite pode estar vinculado a um voo específico.
-- Sempre vinculado a um usuário.
-
----
-
-#### Dias de Folga (`dias_folga`)
-Representam:
-- Data da folga
-- Motivo (opcional)
-- Tipo (programada/ocasional)
-
-**Relacionamentos:**
-- Cada dia de folga pertence a um único usuário.
-
----
-
-#### Conexões (`conexoes`)
-Conectam dois voos consecutivos:
-- Tempo entre os voos
-- IDs dos voos conectados
-
-**Relacionamentos:**
-- Cada conexão liga dois voos diferentes por meio de seus respectivos IDs.
-
-<div align="center">
-  <sub>Diagrama do banco de dados completo:</sub><br>
-  <img src="../assets/modelo-banco.png" width="100%" alt="modelo"><br>
-  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
-</div>
+Relacionamentos entre Tabelas
+- Usuários → Tarefas (1:N)
+- Um usuário pode cadastrar múltiplas tarefas
+- Relacionamento implementado via usuario_id em tarefas
+Exemplo: Um piloto cadastra tanto tarefas de voo quanto pessoais
+- Tarefas → Checklist (1:N)
+- Cada tarefa pode conter vários itens de verificação
+- Vinculação através de tarefa_id em checklist
+- Caso de uso: Uma tarefa de "preparação de voo" tem checklist específico para motor e cabine
 
 #### Modelo físico com o Schema do BD
 📥 [Schema SQL completo](../scripts/init.sql)
@@ -182,57 +155,6 @@ Mesmo sem usar um ORM como o Sequelize, os models estão representados nas consu
 - Atualizar: UPDATE usuarios SET ... WHERE id = $1;
 - Deletar: DELETE FROM usuarios WHERE id = $1;
 
-#### Voos
-
-**id**: inteiro, chave primária;
-**origem**: texto, obrigatório;
-**destino**: texto, obrigatório;
-**partida**: timestamp, obrigatório;
-**chegada**: timestamp, obrigatório;
-**tempo_voo**: inteiro (minutos), opcional;
-**usuario_id**: inteiro, chave estrangeira para usuarios;
-
-- Criar: INSERT INTO voos (origem, destino, partida, chegada, tempo_voo, usuario_id) VALUES (...);
-- Listar: SELECT * FROM voos;
-- Atualizar: UPDATE voos SET  (...) WHERE id = (...);
-- Deletar: DELETE FROM voos WHERE id = $1;
-
-#### Pernoites
-
-**id**: inteiro, chave primária;
-**local**: texto, obrigatório;
-**data**: data, obrigatório;
-**duracao_noites**: inteiro, padrão 1;
-**voo_id**: inteiro, chave estrangeira para voos, pode ser nulo;
-**usuario_id**: inteiro, chave estrangeira para usuarios;
-
-- Criar: INSERT INTO pernoites (local, data, duracao_noites, voo_id, usuario_id) VALUES (...);
-- Listar: SELECT * FROM pernoites;
-- Atualizar: UPDATE pernoites SET  (...) WHERE id = (...);
-- Deletar: DELETE FROM pernoites WHERE id = $1;
-
-#### Dias de folga
-**id**: inteiro, chave primária;
-**data**: data, obrigatório;
-**motivo**: texto, opcional;
-**usuario_id**: inteiro, chave estrangeira para usuarios;
-
- - Criar: INSERT INTO dias-folga (data, motivo, usuario_id) VALUES (...);
-- Listar: SELECT * FROM dias-folga;
-- Atualizar: UPDATE dias-folga SET  (...) WHERE id = (...);
-- Deletar: DELETE FROM dias-folga WHERE id = $1;
-
-#### Conexões
-**id**: inteiro, chave primária;
-**voo_id**: inteiro, chave estrangeira para voos;
-**conectado_a**: inteiro, chave estrangeira para voos;
-**tempo_conexao**: inteiro (minutos), opcional;
-
-- Criar: INSERT INTO conexoes (voo_id, conectado_a, tempo_conexao) VALUES (...);
-- Listar: SELECT * FROM conexoes;
-- Atualizar: UPDATE conexoes SET  (...) WHERE id = (...);
-- Deletar: DELETE FROM conexoes WHERE id = $1;
-
 #### Tarefas
 **id**: inteiro, chave primária;
 **titulo**: texto, obrigatório;
@@ -251,6 +173,17 @@ Mesmo sem usar um ORM como o Sequelize, os models estão representados nas consu
 - Atualizar: UPDATE tarefas SET  (...) WHERE id = (...);
 - Deletar: DELETE FROM tarefas WHERE id = $1;
 - Listar pro usuário: SELECT * FROM tarefas WHERE usuario = (...);
+
+#### Checklist
+**id**: inteiro, chave primária;
+**titulo**: texto, obrigatório;
+**marcado**: booleano, padrão false;
+
+- Criar: INSERT INTO checklist (titulo, marcado) VALUES (...);
+- Listar: SELECT id, titulo, marcado FROM checklist;
+- Buscar por ID: SELECT * FROM checklist WHERE id = $1;
+- Atualizar: UPDATE checklist SET titulo = ..., marcado = ... WHERE id = $1;
+- Deletar: DELETE FROM checklist WHERE id = $1;
 
 ### 3.2. Arquitetura 
 
@@ -278,36 +211,12 @@ Essa tela atende os requisitos da US04, utilizando de um design bem estruturado 
   <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
 </div>
 
-####  Login
-Essa tela atende diretamente os requisitos da US04, utilizando de e-mail e senha do piloto a fim de que somente ele consiga acessar as suas informações e rotina de forma individual e segura.
-<div align="center">
-  <sub>Tela de login:</sub><br>
-  <img src="../assets/login.png" width="100%" alt="Tela de login"><br>
-  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
-</div>
 
-####  Calendário
-Essa tela atende diretamente os requisitos da US01, mostrando para o piloto os seus calendários e suas marcações de tarefas para cada dia da semana.
-<div align="center">
-  <sub>Tela do calendário:</sub><br>
-  <img src="../assets/calendario.png" width="100%" alt="Tela do calendário"><br>
-  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
-</div>
-
-####  Dias da semana
+####  Tarefas
 Essa tela atende diretamente ao segundo critério de aceite da US02, em que o piloto pode clicar no dia da semana em que ele está (hoje) e visualizar suas tarefas, que serão marcadas por ele como "pendentes" ou "feitas" e por ordem de prioridade.
 <div align="center">
   <sub>Tela dos dias da semana:</sub><br>
   <img src="../assets/semana.png" width="100%" alt="Tela dos dias da semana"><br>
-  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
-</div>
-
-####  Informações pessoais
-Essa tela atende às questões que o piloto trás sobre sua organização pessoal e demandas específicas da área da aviação, mostrando as suas horas de voo, certificações e lugares que já esteve (US01).
-
-<div align="center">
-  <sub>Tela das informações pessoais:</sub><br>
-  <img src="../assets/relatorios.png" width="100%" alt="Tela das informações pessoais:"><br>
   <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
 </div>
 
@@ -362,40 +271,9 @@ Um protótipo de alta fidelidade é uma representação visual detalhada do sist
 
 A tela de início foi projetada para ser clara, objetiva e intuitiva, cumprindo a US04, que pede um site funcional e compreensível desde o primeiro acesso. O layout apresenta blocos com ícones e cores suaves, permitindo ao piloto entender rapidamente as funcionalidades principais, como calendário, tarefas e voos. A escolha por um fundo branco com elementos em tons de azul e cinza traz seriedade e remete ao ambiente aeronáutico, ao mesmo tempo que favorece a leitura em diferentes dispositivos.
 
-<div align="center">
-  <sub>Tela de login:</sub><br>
-  <img src="../assets/login1.png" width="100%" alt="Tela de checklist:"><br>
-  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
-</div>
-
-Relacionada diretamente à US04, esta tela garante que cada piloto possa acessar apenas seus próprios dados, através de um login seguro por e-mail e senha. O layout segue a mesma linha visual das outras telas, com cores neutras e tipografia clara, reforçando a identidade visual e promovendo uma navegação sem distrações.
 
 <div align="center">
-  <sub>Tela de cadastro:</sub><br>
-  <img src="../assets/cadastro1.png" width="100%" alt="Tela do cadastro:"><br>
-  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
-</div>
-
-Essa tela complementa a tela de login, facilitando o primeiro acesso do piloto ao sistema. O uso de campos bem espaçados e botões em azul escuro, contrastando com o fundo claro, garante boa usabilidade e acessibilidade. O design minimalista reflete a proposta de foco e organização do MBFly, reforçando os princípios da US04, que trata da segurança e privacidade das informações do usuário.
-
-<div align="center">
-  <sub>Tela de Calendario:</sub><br>
-  <img src="../assets/calendario1.png" width="100%" alt="Tela do Calendario:"><br>
-  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
-</div>
-
-A tela de calendário responde aos critérios da US02, permitindo que o piloto visualize todas as suas tarefas organizadas por dia, mês e prioridade. O design em formato de grade, com cores suaves para os dias e marcadores coloridos para indicar o dia vigente, facilita o planejamento visual. O toque moderno e organizado da interface ajuda a manter o foco, mesmo em rotinas exigentes.
-
-<div align="center">
-  <sub>Tela de informações pessoais:</sub><br>
-  <img src="../assets/relatorios1.png" width="100%" alt="Tela da persona:"><br>
-  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
-</div>
-
-Essa tela representa um painel de controle do piloto, centralizando dados como horas de voo, destinos visitados e licenças. Atende às funcionalidades previstas na US01, pois oferece uma visão organizada das tarefas e registros pessoais. A interface foi pensada para ser objetiva, com ícones temáticos e gráficos simples, promovendo clareza e acompanhamento de metas de forma visualmente agradável.
-
-<div align="center">
-  <sub>Tela de compromissos:</sub><br>
+  <sub>Tela de tarefas:</sub><br>
   <img src="../assets/semana1.png" width="100%" alt="Tela de metas:"><br>
   <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
 </div>
@@ -427,45 +305,26 @@ Sendo assim, no projeto MBFly, o protótipo de alta fidelidade foi fundamental p
 | PUT    | `/usuarios/:id` | Atualizar dados do usuário | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ nome, email, tipo_licenca, horas_voo_totais, aeroporto_base }` |
 | DELETE | `/usuarios/:id` | Deletar usuário pelo ID    | Parâmetro URL: `id`                                                                                                            |
 
-#### Voos
+#### Tarefas
 
-| Método | Endpoint    | Descrição              | Parâmetros / Corpo                                                                                                          |
-| ------ | ----------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| POST   | `/voos`     | Criar um novo voo      | Corpo JSON: `{ origem, destino, partida, chegada, tempo_voo, usuario_id }`                                                  |
-| GET    | `/voos`     | Listar todos os voos   | -                                                                                                                           |
-| GET    | `/voos/:id` | Buscar voo pelo ID     | Parâmetro URL: `id`                                                                                                         |
-| PUT    | `/voos/:id` | Atualizar dados do voo | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ origem, destino, partida, chegada, tempo_voo, usuario_id }` |
-| DELETE | `/voos/:id` | Deletar voo pelo ID    | Parâmetro URL: `id`                                                                                                         |
+| Método | Endpoint       | Descrição                 | Parâmetros / Corpo                                                                                                      |
+| ------ | -------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| POST   | `/tarefas`     | Criar uma nova tarefa     | Corpo JSON: `{ titulo, descricao, hora_inicio, hora_fim, prioridade }`                                                  |
+| GET    | `/tarefas`     | Listar todas as tarefas   | -                                                                                                                       |
+| GET    | `/tarefas/:id` | Buscar tarefa pelo ID     | Parâmetro URL: `id` (ID da tarefa)                                                                                      |
+| PUT    | `/tarefas/:id` | Atualizar dados da tarefa | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ titulo, descricao, hora_inicio, hora_fim, prioridade }` |
+| DELETE | `/tarefas/:id` | Deletar tarefa pelo ID    | Parâmetro URL: `id`                                                                                                     |
 
-#### Pernoites
+#### Checklist
 
-| Método | Endpoint         | Descrição                   | Parâmetros / Corpo                                                                                                 |
-| ------ | ---------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| POST   | `/pernoites`     | Criar um novo pernoite      | Corpo JSON: `{ local, data, duracao_noites, voo_id, usuario_id }`                                                  |
-| GET    | `/pernoites`     | Listar todos os pernoites   | -                                                                                                                  |
-| GET    | `/pernoites/:id` | Buscar pernoite pelo ID     | Parâmetro URL: `id`                                                                                                |
-| PUT    | `/pernoites/:id` | Atualizar dados do pernoite | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ local, data, duracao_noites, voo_id, usuario_id }` |
-| DELETE | `/pernoites/:id` | Deletar pernoite pelo ID    | Parâmetro URL: `id`                                                                                                |
+| Método | Endpoint         | Descrição                    | Parâmetros / Corpo                                         |
+| ------ | ---------------- | ---------------------------- | ---------------------------------------------------------- |
+| POST   | `/checklist`     | Criar novo item de checklist | Corpo JSON: `{ titulo, marcado }`                          |
+| GET    | `/checklist`     | Listar todos os itens        | -                                                          |
+| GET    | `/checklist/:id` | Buscar item pelo ID          | Parâmetro URL: `id` (ID do item)                           |
+| PUT    | `/checklist/:id` | Atualizar item do checklist  | Parâmetro URL: `id` <br> Corpo JSON: `{ titulo, marcado }` |
+| DELETE | `/checklist/:id` | Deletar item do checklist    | Parâmetro URL: `id`                                        |
 
-#### Dias de folga
-
-| Método | Endpoint          | Descrição                     | Parâmetros / Corpo                                                                          |
-| ------ | ----------------- | ----------------------------- | ------------------------------------------------------------------------------------------- |
-| POST   | `/dias_folga`     | Criar um novo dia de folga    | Corpo JSON: `{ data, motivo, usuario_id }`                                                  |
-| GET    | `/dias_folga`     | Listar todos os dias de folga | -                                                                                           |
-| GET    | `/dias_folga/:id` | Buscar dia de folga pelo ID   | Parâmetro URL: `id`                                                                         |
-| PUT    | `/dias_folga/:id` | Atualizar dia de folga        | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ data, motivo, usuario_id }` |
-| DELETE | `/dias_folga/:id` | Deletar dia de folga pelo ID  | Parâmetro URL: `id`                                                                         |
-
-#### Conexões de voo
-
-| Método | Endpoint        | Descrição                  | Parâmetros / Corpo                                                                                    |
-| ------ | --------------- | -------------------------- | ----------------------------------------------------------------------------------------------------- |
-| POST   | `/conexoes`     | Criar uma nova conexão     | Corpo JSON: `{ voo_id, conectado_a, tempo_conexao }`                                                  |
-| GET    | `/conexoes`     | Listar todas as conexões   | -                                                                                                     |
-| GET    | `/conexoes/:id` | Buscar conexão pelo ID     | Parâmetro URL: `id`                                                                                   |
-| PUT    | `/conexoes/:id` | Atualizar dados da conexão | Parâmetro URL: `id` <br> Corpo JSON: campos a atualizar, ex: `{ voo_id, conectado_a, tempo_conexao }` |
-| DELETE | `/conexoes/:id` | Deletar conexão pelo ID    | Parâmetro URL: `id`                                                                                   |
 
 
 
@@ -635,7 +494,6 @@ CREATE TABLE checklist (
 - CRUD de tarefas
 - Sistema de checklist
 - Feedback visual aprimorado
-- Responsividade em todas as páginas
 
   O frontend entregue nesta semana marca o início da interface gráfica da aplicação MBFly. Com as três telas fundamentais estruturadas, o projeto já permite a navegação básica e a visualização de informações essenciais para os pilotos. As próximas etapas incluirão a adição de funcionalidades dinâmicas, novas telas, integração com backend e melhorias visuais.
 
@@ -649,15 +507,73 @@ CREATE TABLE checklist (
 *Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
 
 ### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
+#### Pontos Fortes Atuais:
+- Interface intuitiva e alinhada com necessidades de pilotos
+- Sistema de categorização eficiente para diferentes tipos de tarefas
+- Checklist pré-voo completo e funcional
+- Design responsivo e acessível
 
-*Indique pontos fortes e pontos a melhorar de maneira geral.*
-*Relacione também quaisquer outras ideias que você tenha para melhorias futuras.*
+#### Áreas para Melhoria:
+1. Funcionalidades Adicionais:
+- Integração com calendários externos (Google Calendar, Outlook)
+- Sincronização multiplataforma (app mobile complementar)
+- Relatórios de produtividade (gráficos de horas trabalhadas, voos realizados)
+- Sistema de compartilhamento (permitir compartilhar escalas com equipe)
+
+2. Experiência do Usuário:
+- Dark mode para uso noturno em cabines
+- Personalização de categorias (permitir criar novas categorias além das padrão)
+- Lembretes inteligentes (baseados em localização e horários de voo)
+- Tradução para múltiplos idiomas (inglês, espanhol para pilotos internacionais)
+
+3. Tecnologia:
+- Autenticação avançada (biometria, 2FA)
+- Offline mode (funcionalidades básicas sem internet)
+- API pública para integração com outros sistemas aeronáuticos
+- Machine learning para sugestão automática de horários de descanso
+
+4. Segurança e Confiabilidade
+- Backup automático das tarefas e checklists
+- Histórico de alterações (log de mudanças nas tarefas)
+- Modo emergência (checklist rápido para situações críticas)
+
+5. Especialização
+- Checklists específicos por tipo de aeronave
+- Integração com dados meteorológicos
+- Calculadora de combustível e peso incorporada
+- Diretrizes regulatórias (ANAC, FAA, EASA) contextualizadas
 
 
 
 ## <a name="c5"></a>5. Referências
 
-_Incluir as principais referências de seu projeto, para que seu parceiro possa consultar caso ele se interessar em aprofundar. Um exemplo de referência de livro e de site:_<br>
+#### Design e UX
+NORMAN, D. A. The Design of Everyday Things. Basic Books, 2013.
+KRUG, S. Don't Make Me Think, Revisited: A Common Sense Approach to Web Usability. New Riders, 2014.
+Material Design Guidelines - https://material.io/design
+Nielsen Norman Group - https://www.nngroup.com/
 
----
+#### Aviação e Checklists
+FAA. Pilot's Handbook of Aeronautical Knowledge. 2016.
+IATA. Operational Safety Audit (IOSA) Standards Manual.
+DEGANI, A. On the Typography of Flight-Deck Documentation. NASA, 1992.
+SKYbrary - https://www.skybrary.aero/
+
+#### Tecnologia
+MDN Web Docs - https://developer.mozilla.org/
+Node.js Documentation - https://nodejs.org/en/docs/
+PostgreSQL Documentation - https://www.postgresql.org/docs/
+REST API Tutorial - https://restfulapi.net/
+
+#### Aplicações Similares
+ForeFlight - https://www.foreflight.com/
+Jeppesen Mobile FD - https://www.jeppesen.com/
+MyFlightCoach - https://www.myflightcoach.com/
+
+#### Ferramentas Utilizadas
+Figma - https://www.figma.com/
+Mermaid.js - https://mermaid-js.github.io/
+Visual Studio Code - https://code.visualstudio.com/
+Canva - https://www.canva.com/
+
 ---
