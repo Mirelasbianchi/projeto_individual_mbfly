@@ -509,17 +509,29 @@ Apresentação em vídeo do sistema MBFly, mostrando o funcionamento da aplicaç
 - Criação de tarefas
 - Alteração de checklists
 
- [Inserir print de tela do formulário de cadastro de voos ou usuários]
+<div align="center">
+  <sub>Tela de início:</sub><br>
+  <img src="../assets/iniciar.png" width="100%" alt="Tela de início:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
 
  Listagem de Dados:
 Há listagens completas com dados vindos do banco, exibidos em tabelas ou cards para facilitar a visualização.
 
- [Inserir print de tela da listagem de voos, tarefas ou conexões]
+<div align="center">
+  <sub>Tela de tarefas:</sub><br>
+  <img src="../assets/tarefas1.png" width="100%" alt="Tela de tarefas:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
 
  Edição e Exclusão:
 Cada item pode ser editado ou excluído. Ao excluir, o sistema confirma a ação e atualiza a listagem.
 
- [Inserir print de tela da exclusão ou da edição de um item]
+<div align="center">
+  <sub>Tela de criar tarefas:</sub><br>
+  <img src="../assets/tarefas2.png" width="100%" alt="Tela de criar tarefas:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
 
 #### Estrutura Técnica do Projeto
 Back-end:
@@ -537,7 +549,19 @@ Front-end:
 - Atualização dinâmica de dados via JavaScript
 - Interface simples e funcional
 
- [Inserir print do código JavaScript com uso de fetch()]
+```javascript
+// Exemplo de criação de tarefa
+async function criarTarefa(dados) {
+  const response = await fetch('/api/tarefas', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dados)
+  });
+  return await response.json();
+}
+```
 
 #### Desafios Enfrentados
 Integração front-back:
