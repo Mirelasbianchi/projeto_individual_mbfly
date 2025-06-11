@@ -499,14 +499,70 @@ CREATE TABLE checklist (
 
 ---
 
-## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
+## <a name="c4"></a>4. Desenvolvimento da Aplicação Web 
 
-### 4.1 Demonstração do Sistema Web (Semana 8)
+### 4.1 Demonstração do Sistema Web 
+Apresentação em vídeo do sistema MBFly, mostrando o funcionamento da aplicação, as principais funcionalidades implementadas e uma explicação breve sobre a estrutura do projeto:
+[Acesse o vídeo da apresentação no Google Drive](https://drive.google.com/file/d/1AdN9ZqqvWHhc6B2X04KRJXPABDwNU8CJ/view?usp=sharing)
 
-*VIDEO: Insira o link do vídeo demonstrativo nesta seção*
-*Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+#### Funcionalidades Entregues
+- Criação de tarefas
+- Alteração de checklists
 
-### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
+ [Inserir print de tela do formulário de cadastro de voos ou usuários]
+
+ Listagem de Dados:
+Há listagens completas com dados vindos do banco, exibidos em tabelas ou cards para facilitar a visualização.
+
+ [Inserir print de tela da listagem de voos, tarefas ou conexões]
+
+ Edição e Exclusão:
+Cada item pode ser editado ou excluído. Ao excluir, o sistema confirma a ação e atualiza a listagem.
+
+ [Inserir print de tela da exclusão ou da edição de um item]
+
+#### Estrutura Técnica do Projeto
+Back-end:
+- Desenvolvido com Node.js e Express.js
+- Segue o padrão MVC
+- Endpoints REST criados para cada entidade
+- Banco de dados PostgreSQL com tabelas bem normalizadas
+- Testes feitos com Postman para validar as rotas
+
+ [Inserir print do código das rotas ou testes no Postman]
+
+Front-end:
+- HTML, CSS e JavaScript 
+- Comunicação com o back-end feita por Fetch API
+- Atualização dinâmica de dados via JavaScript
+- Interface simples e funcional
+
+ [Inserir print do código JavaScript com uso de fetch()]
+
+#### Desafios Enfrentados
+Integração front-back:
+- Desafio: garantir que as rotas do back fossem corretamente chamadas pelo front.
+- Solução: uso correto de fetch, testes no Postman antes da integração.
+
+Modelagem do banco de dados:
+- Desafio: tabelas com muitos relacionamentos (ex: conexões entre voos, pernoites).
+- Solução: criação de chaves estrangeiras e tabelas intermediárias (como conexoes).
+
+Atualização dinâmica da interface:
+- Desafio: refletir alterações no front após operações CRUD.
+- Solução: uso de fetch com then() para manipular DOM após respostas do servidor.
+
+#### Código Entregue
+- Estrutura completa de pastas com separação de models, controllers e rotas
+- Scripts para criação e conexão com o banco PostgreSQL
+- HTMLs funcionais para cada uma das funcionalidades (listagem, edição, exclusão)
+- Código limpo e funcional
+
+ [Inserir print do terminal com o servidor rodando ou do código do controller]
+
+
+
+### 4.2 Conclusões e Trabalhos Futuros 
 #### Pontos Fortes Atuais:
 - Interface intuitiva e alinhada com necessidades de pilotos
 - Sistema de categorização eficiente para diferentes tipos de tarefas
