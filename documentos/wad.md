@@ -541,7 +541,11 @@ Back-end:
 - Banco de dados PostgreSQL com tabelas bem normalizadas
 - Testes feitos com Postman para validar as rotas
 
- [Inserir print do código das rotas ou testes no Postman]
+<div align="center">
+  <sub>Routes:</sub><br>
+  <img src="../assets/rotas.png" width="100%" alt="Routes:"><br>
+  <sup>Fonte: Vscode</sup>
+</div>
 
 Front-end:
 - HTML, CSS e JavaScript 
@@ -582,8 +586,11 @@ Atualização dinâmica da interface:
 - HTMLs funcionais para cada uma das funcionalidades (listagem, edição, exclusão)
 - Código limpo e funcional
 
- [Inserir print do terminal com o servidor rodando ou do código do controller]
-
+<div align="center">
+  <sub>Servidor rodando:</sub><br>
+  <img src="../assets/servidor.png" width="100%" alt="Servidor rodando:"><br>
+  <sup>Fonte: Vscode</sup>
+</div>
 
 
 ### 4.2 Conclusões e Trabalhos Futuros 
