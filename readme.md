@@ -42,6 +42,30 @@ projeto_individual_mbfly/
 ```
 
 ## Interface
+Telas entregues na versão final do MVP:
+<div align="center">
+  <sub>Tela de início:</sub><br>
+  <img src="./assets/iniciar.png" width="100%" alt="Tela de início:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+<div align="center">
+  <sub>Tela de tarefas:</sub><br>
+  <img src="./assets/tarefas1.png" width="100%" alt="Tela de tarefas:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+<div align="center">
+  <sub>Tela de criar tarefas:</sub><br>
+  <img src="./assets/tarefas2.png" width="100%" alt="Tela de criar tarefas:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
+
+<div align="center">
+  <sub>Tela de checklist:</sub><br>
+  <img src="./assets/checklist2.png" width="100%" alt="Tela de checklist:"><br>
+  <sup>Fonte: Desenvolvido por Mirela Bianchi</sup>
+</div>
 
 
 ## Vídeo Demo:
