@@ -13,7 +13,7 @@
 
 ---
 
-## 📜 Descrição do Sistema
+## 📜 Descrição e funcionalidades do Sistema
 
 O sistema MBFly é uma aplicação desenvolvida com arquitetura MVC que tem como objetivo gerenciar usuários e suas informações em uma interface simples e funcional. Ele será um gerenciador de tarefas online voltado à organização pessoal e aumento da produtividade de pilotos de avião. De forma simples e intuitiva, permitirá ao usuário criar tarefas, definir prazos, organizá-las por categorias como voos, estudos, checagens e escalas, além de acompanhar seu progresso.
 
@@ -41,6 +41,22 @@ projeto_individual_mbfly/
 └── server.js            # Ponto de entrada da aplicação
 ```
 
+## Interface
+
+
+## Vídeo Demo:
+📂 [Acesse o vídeo da apresentação no Google Drive](https://drive.google.com/file/d/1AdN9ZqqvWHhc6B2X04KRJXPABDwNU8CJ/view?usp=sharing)
+
+## Tecnologias utilizadas:
+- Node.js: ambiente de execução JavaScript no servidor.
+- Express.js: framework para criação de rotas e APIs REST.
+- PostgreSQL: banco de dados relacional usado para armazenar os dados do sistema.
+- pg (node-postgres): biblioteca para conectar o Node.js ao PostgreSQL.
+- Arquitetura MVC: separação clara entre Modelos, Controladores e Rotas.
+- Postman (para testes de API): usado para testar todos os endpoints de CRU
+- Git e GitHub: versionamento e hospedagem do repositório.
+- Visual Studio Code: ambiente de desenvolvimento.
+- Insomnia/Postman: testes manuais dos endpoints.
 
 ## 🔧 Como Executar o Projeto Localmente
 
