@@ -191,7 +191,7 @@ Um diagrama de arquitetura é como um "mapa do tesouro" do seu sistema, mostrand
 
 <div align="center">
   <sub>Arquitetura:</sub><br>
-  <img src="../assets/arquitetura.png" width="100%" alt="modelo"><br>
+  <img src="../assets/archer.png" width="100%" alt="modelo"><br>
   <sup>Fonte: Desenvolvido por Mirela Schneider Bianchi</sup>
 </div>
 
